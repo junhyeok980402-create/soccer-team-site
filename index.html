@@ -637,30 +637,77 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* ---- placeholder pages (경기일정 / 구단소개) ---- */
-  .placeholder {
-    border: 1px dashed var(--line);
-    border-radius: 14px;
-    padding: 48px 24px;
-    text-align: center;
+  /* ---- 구단소개 ---- */
+  .about-lede {
+    max-width: 62ch;
+    font-size: 15px;
+    line-height: 1.75;
     color: var(--text-muted);
+    margin: 0 0 clamp(24px, 4vw, 32px);
   }
-  .placeholder .icon {
+  .crest-showcase {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px clamp(18px, 4vw, 28px);
+    margin-bottom: clamp(28px, 5vw, 40px);
+  }
+  .crest.crest-lg {
+    width: 84px;
+    height: 84px;
+    flex: none;
+  }
+  .crest.crest-lg span { font-size: 32px; }
+  .crest-showcase p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 52ch;
+  }
+
+  .timeline {
+    border-left: 2px solid var(--line);
+    margin-left: 6px;
+    padding-left: 26px;
+  }
+  .timeline-item {
+    position: relative;
+    padding-bottom: 26px;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -33px;
+    top: 3px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg);
+  }
+  .timeline-date {
     font-family: "Oswald", sans-serif;
-    font-size: 12px;
-    letter-spacing: .1em;
-    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 12.5px;
+    letter-spacing: .04em;
     color: var(--accent);
-    margin-bottom: 10px;
+    margin-bottom: 4px;
   }
-  .placeholder h2 {
-    font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
-    font-weight: 400;
-    font-size: 22px;
-    color: var(--text);
-    margin: 0 0 8px;
+  .timeline-title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 3px;
   }
-  .placeholder p { margin: 0; font-size: 13.5px; }
+  .timeline-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
 
   footer {
     padding: 18px 0 40px;
@@ -760,12 +807,77 @@
     </div>
   </main>
 
-  <!-- ===== 구단소개 (준비 중) ===== -->
+  <!-- ===== 구단소개 ===== -->
   <main class="page" id="page-about" hidden>
-    <div class="placeholder">
-      <div class="icon">Coming Soon</div>
-      <h2>구단소개 준비 중입니다</h2>
-      <p>한빛 FC의 역사와 철학이 이곳에 소개될 예정입니다.</p>
+    <div class="roster-meta">
+      <h2>구단소개</h2>
+      <span>SINCE 2019</span>
+    </div>
+
+    <p class="about-lede">한빛 FC는 2019년 한빛시를 연고로 창단된 축구단입니다. 화려한 결과보다 꾸준한 과정을 앞세운다는 원칙 아래 "정직한 축구"를 슬로건으로 삼아 지역과 함께 성장해왔습니다.</p>
+
+    <div class="stat-grid">
+      <div class="stat"><div class="label">구단명</div><div class="value" style="font-size:16px">한빛 축구단</div></div>
+      <div class="stat"><div class="label">연고지</div><div class="value" style="font-size:16px">한빛시</div></div>
+      <div class="stat"><div class="label">창단</div><div class="value">2019.03</div></div>
+      <div class="stat"><div class="label">홈구장</div><div class="value" style="font-size:15px">한빛 스타디움 (5,200석)</div></div>
+      <div class="stat"><div class="label">소속리그</div><div class="value" style="font-size:15px">K4리그</div></div>
+      <div class="stat"><div class="label">구단 컬러</div><div class="value" style="font-size:15px">그린 · 골드</div></div>
+    </div>
+
+    <h3 class="section-heading">엠블럼</h3>
+    <div class="crest-showcase">
+      <div class="crest crest-lg"><span>한</span></div>
+      <p>골드 링은 성실과 영예를, 초록 바탕은 한빛시를 둘러싼 산과 들판을 상징합니다. 중앙의 '한' 글자는 창단 당시 팬들이 직접 제안한 서체를 그대로 살려 지금까지 이어오고 있습니다.</p>
+    </div>
+
+    <h3 class="section-heading">연혁</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">2019.03</div>
+        <div class="timeline-title">한빛 FC 창단</div>
+        <div class="timeline-desc">한빛시 생활축구 동호인들을 중심으로 창단, K5리그에 참가.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2019.11</div>
+        <div class="timeline-title">창단 첫 시즌 K5리그 3위</div>
+        <div class="timeline-desc">참가 첫 해 승격 플레이오프 진출.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2020.10</div>
+        <div class="timeline-title">K4리그 승격</div>
+        <div class="timeline-desc">승격 플레이오프를 통해 구단 최초로 K4리그 무대에 올라섬.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2021.06</div>
+        <div class="timeline-title">한빛 스타디움 개장</div>
+        <div class="timeline-desc">5,200석 규모의 전용 홈구장으로 이전.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2022.09</div>
+        <div class="timeline-title">구단 통산 100승 달성</div>
+        <div class="timeline-desc">리그 데뷔 3년 만에 통산 100승 기록.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2023.05</div>
+        <div class="timeline-title">K4리그 컵대회 8강</div>
+        <div class="timeline-desc">구단 역대 최고 성적으로 컵대회 8강 진출.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2024.02</div>
+        <div class="timeline-title">유소년 아카데미 창단</div>
+        <div class="timeline-desc">지역 유소년 육성을 위한 한빛 FC 아카데미 출범.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2025.11</div>
+        <div class="timeline-title">역대 최다 관중 기록</div>
+        <div class="timeline-desc">한빛 스타디움에서 4,800명 관중 동원.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026.03</div>
+        <div class="timeline-title">2026 시즌 개막</div>
+        <div class="timeline-desc">현재 K4리그 3위로 시즌 진행 중.</div>
+      </div>
     </div>
   </main>
 
