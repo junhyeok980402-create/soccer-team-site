@@ -59,13 +59,12 @@
     position: sticky;
     top: 0;
     z-index: 10;
-    background: var(--bg);
-    border-bottom: 1px solid var(--line);
+    background: var(--accent);
   }
   .topnav-inner {
     max-width: 980px;
     margin: 0 auto;
-    padding: 14px 20px;
+    padding: 12px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -84,82 +83,89 @@
     color: inherit;
     border-radius: 8px;
   }
-  .brand:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  .brand:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 4px; }
   .crest {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: var(--accent);
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--gold);
     display: flex; align-items: center; justify-content: center;
     flex: none;
   }
   .crest span {
     font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
-    color: var(--gold-soft);
-    font-size: 16px;
+    color: var(--accent);
+    font-size: 15px;
     line-height: 1;
   }
   .brand-name {
     font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
     font-weight: 400;
-    font-size: 19px;
+    font-size: 18px;
     letter-spacing: .01em;
+    color: var(--gold-soft);
   }
   .nav-links {
     display: flex;
-    gap: 4px;
+    gap: 2px;
     flex-wrap: wrap;
   }
   .nav-link {
     background: none;
     border: none;
     font: inherit;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-muted);
+    font-size: 13.5px;
+    font-weight: 700;
+    color: rgba(245, 236, 214, .78);
     padding: 8px 12px;
     border-radius: 100px;
     cursor: pointer;
   }
-  .nav-link:hover { color: var(--text); background: var(--surface-2); }
-  .nav-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .nav-link[aria-current="page"] { color: var(--accent); background: var(--accent-soft); }
+  .nav-link:hover { color: var(--gold-soft); background: rgba(0,0,0,.15); }
+  .nav-link:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 2px; }
+  .nav-link[aria-current="page"] { color: var(--accent); background: var(--gold-soft); }
 
   main.page { padding: clamp(24px, 5vw, 48px) 0 64px; }
 
-  /* ---- home view ---- */
-  .hero {
-    padding: clamp(12px, 3vw, 20px) 0 clamp(28px, 5vw, 40px);
-    border-bottom: 1px solid var(--line);
-    margin-bottom: clamp(28px, 5vw, 40px);
+  /* ---- home hero band (full-bleed) ---- */
+  .hero-band {
+    background:
+      radial-gradient(120% 160% at 100% 0%, rgba(255,255,255,.08), transparent 55%),
+      linear-gradient(155deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 78%, #0a1a10) 100%);
+  }
+  .hero-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: clamp(36px, 7vw, 64px) 20px clamp(30px, 6vw, 48px);
   }
   .hero-eyebrow {
     font-family: "Oswald", sans-serif;
     font-size: 12px;
-    letter-spacing: .1em;
+    letter-spacing: .14em;
     text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 10px;
+    color: var(--gold-soft);
+    margin-bottom: 12px;
   }
-  .hero h1 {
+  .hero-band h1 {
     font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
     font-weight: 400;
-    font-size: clamp(30px, 6vw, 46px);
+    font-size: clamp(32px, 6.5vw, 50px);
     margin: 0 0 14px;
     text-wrap: balance;
     line-height: 1.15;
+    color: #fff;
   }
-  .hero p {
+  .hero-band p {
     max-width: 46ch;
-    color: var(--text-muted);
+    color: rgba(245, 249, 246, .82);
     font-size: 15px;
     line-height: 1.7;
-    margin: 0 0 22px;
+    margin: 0 0 26px;
   }
   .cta {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--accent);
-    color: var(--gold-soft);
+    background: var(--gold);
+    color: #241d08;
     border: none;
     font: inherit;
     font-weight: 700;
@@ -167,36 +173,147 @@
     padding: 12px 22px;
     border-radius: 100px;
     cursor: pointer;
+    margin-bottom: clamp(28px, 5vw, 36px);
   }
-  .cta:hover { filter: brightness(1.08); }
-  .cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cta:hover { filter: brightness(1.06); }
+  .cta:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 3px; }
 
-  .fact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: clamp(28px, 5vw, 40px);
+  .hero-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
-  .fact {
-    background: var(--surface);
-    padding: 18px 20px;
+  .hero-chip {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 100px;
+    padding: 8px 14px;
   }
-  .fact .label {
-    font-size: 11.5px;
-    color: var(--text-muted);
-    letter-spacing: .03em;
-    margin-bottom: 6px;
-  }
-  .fact .value {
+  .hero-chip .k { font-size: 12px; color: rgba(245,249,246,.72); }
+  .hero-chip .v {
     font-family: "Oswald", sans-serif;
-    font-size: 19px;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 14px;
+    color: #fff;
     font-variant-numeric: tabular-nums;
   }
+
+  /* ---- widgets row: 최근 경기결과 / 리그 순위 ---- */
+  .widgets-row {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 14px;
+    margin: clamp(28px, 5vw, 40px) 0;
+  }
+  @media (max-width: 640px) {
+    .widgets-row { grid-template-columns: 1fr; }
+  }
+  .widget {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .widget-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+  .widget-head h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .widget-head span {
+    font-family: "Oswald", sans-serif;
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: var(--text-muted);
+  }
+
+  .scoreboard {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .scoreboard-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+  }
+  .scoreboard-team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 96px;
+  }
+  .scoreboard-badge {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Oswald", sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .scoreboard-badge.us { background: var(--accent-soft); color: var(--accent); }
+  .scoreboard-badge.them { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--line); }
+  .scoreboard-team span:last-child {
+    font-size: 12.5px;
+    font-weight: 700;
+    text-align: center;
+  }
+  .scoreboard-score {
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+  }
+  .scoreboard-result {
+    font-family: "Oswald", sans-serif;
+    font-size: 11px;
+    letter-spacing: .06em;
+    padding: 3px 9px;
+    border-radius: 100px;
+    background: var(--gold-soft);
+    color: var(--gold);
+  }
+  .scoreboard-meta {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .standings {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .standings th, .standings td {
+    padding: 10px 8px;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+  }
+  .standings th {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    letter-spacing: .04em;
+    font-weight: 600;
+  }
+  .standings td { font-variant-numeric: tabular-nums; }
+  .standings td:nth-child(2) { text-align: left; font-weight: 700; }
+  .standings tr:last-child td { border-bottom: none; }
+  .standings tr.us td { background: var(--accent-soft); color: var(--accent); }
+  .standings td:first-child { font-family: "Oswald", sans-serif; color: var(--text-muted); }
+  .standings tr.us td:first-child { color: var(--accent); font-weight: 700; }
 
   .section-heading {
     font-size: 15px;
@@ -266,12 +383,17 @@
     justify-content: space-between;
   }
   .card-num {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    display: flex; align-items: center; justify-content: center;
     font-family: "Oswald", sans-serif;
     font-weight: 600;
-    font-size: 30px;
+    font-size: 18px;
     color: var(--accent);
     line-height: 1;
     font-variant-numeric: tabular-nums;
+    flex: none;
   }
   .pos-pill {
     font-family: "Oswald", sans-serif;
@@ -473,21 +595,38 @@
   </div>
 </nav>
 
+<section class="hero-band" id="hero-band">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">2026 시즌 · K4리그</div>
+    <h1>정직한 축구, 한빛 FC</h1>
+    <p>2019년 창단 이후 지역과 함께 성장해온 한빛 FC의 공식 홈페이지입니다. 선수단 정보와 시즌 기록을 이곳에서 확인하세요.</p>
+    <button class="cta" data-nav="roster">선수단 보기 →</button>
+    <div class="hero-chips">
+      <div class="hero-chip"><span class="k">창단</span><span class="v">2019</span></div>
+      <div class="hero-chip"><span class="k">홈구장</span><span class="v">한빛 스타디움</span></div>
+      <div class="hero-chip"><span class="k">소속리그</span><span class="v">K4리그</span></div>
+      <div class="hero-chip"><span class="k">등록 선수</span><span class="v">11명</span></div>
+    </div>
+  </div>
+</section>
+
 <div class="wrap">
   <!-- ===== 홈 ===== -->
   <main class="page" id="page-home">
-    <section class="hero">
-      <div class="hero-eyebrow">2026 시즌 · K4리그</div>
-      <h1>정직한 축구, 한빛 FC</h1>
-      <p>2019년 창단 이후 지역과 함께 성장해온 한빛 FC의 공식 홈페이지입니다. 선수단 정보와 시즌 기록을 이곳에서 확인하세요.</p>
-      <button class="cta" data-nav="roster">선수단 보기 →</button>
-    </section>
-
-    <div class="fact-grid">
-      <div class="fact"><div class="label">창단연도</div><div class="value">2019</div></div>
-      <div class="fact"><div class="label">홈구장</div><div class="value" style="font-size:15px">한빛 스타디움</div></div>
-      <div class="fact"><div class="label">소속리그</div><div class="value" style="font-size:15px">K4리그</div></div>
-      <div class="fact"><div class="label">등록 선수</div><div class="value">11</div></div>
+    <div class="widgets-row">
+      <div class="widget">
+        <div class="widget-head"><h3>최근 경기 결과</h3><span id="scoreboard-date"></span></div>
+        <div class="scoreboard" id="scoreboard"></div>
+      </div>
+      <div class="widget">
+        <div class="widget-head"><h3>K4리그 순위</h3><span>2026 시즌</span></div>
+        <table class="standings">
+          <thead>
+            <tr><th>순위</th><th>클럽</th><th>승점</th><th>승</th><th>무</th><th>패</th></tr>
+          </thead>
+          <tbody id="standings-body"></tbody>
+        </table>
+      </div>
     </div>
 
     <h2 class="section-heading">주요 선수</h2>
@@ -548,6 +687,21 @@
     { num: 11, name: "임현우", pos: "FW", posLabel: "공격수", age: 21, apps: 12, school: "보인고 - 아주대", height: 178, weight: 72, joined: 2025, captain: false },
   ];
 
+  const recentMatch = {
+    opponent: "서한 유나이티드",
+    usScore: 2,
+    themScore: 1,
+    date: "2026.09.06(일)",
+    venue: "한빛 스타디움",
+  };
+
+  const standings = [
+    { rank: 1, team: "광산 시티 FC", pts: 52, w: 16, d: 4, l: 2 },
+    { rank: 2, team: "동해 유나이티드", pts: 47, w: 14, d: 5, l: 3 },
+    { rank: 3, team: "한빛 FC", pts: 45, w: 13, d: 6, l: 3, isUs: true },
+    { rank: 4, team: "청람 FC", pts: 41, w: 12, d: 5, l: 5 },
+  ];
+
   // ---- 페이지(사이트 프레임) 전환 ----
   const pages = {
     home: document.getElementById("page-home"),
@@ -555,10 +709,12 @@
     schedule: document.getElementById("page-schedule"),
     about: document.getElementById("page-about"),
   };
+  const heroBand = document.getElementById("hero-band");
   const navButtons = document.querySelectorAll("[data-nav]");
 
   function goTo(name) {
     Object.entries(pages).forEach(([key, el]) => { el.hidden = key !== name; });
+    heroBand.hidden = name !== "home";
     document.querySelectorAll(".nav-link").forEach((btn) => {
       btn.toggleAttribute("aria-current", btn.dataset.nav === name);
       if (btn.dataset.nav === name) btn.setAttribute("aria-current", "page");
@@ -618,6 +774,47 @@
     rosterList.hidden = false;
   }
 
+  // ---- 홈 위젯: 최근 경기 결과 / 리그 순위 ----
+  function renderScoreboard() {
+    const m = recentMatch;
+    const result = m.usScore > m.themScore ? "승" : m.usScore < m.themScore ? "패" : "무";
+    document.getElementById("scoreboard-date").textContent = m.date;
+    document.getElementById("scoreboard").innerHTML = `
+      <div class="scoreboard-row">
+        <div class="scoreboard-team">
+          <div class="scoreboard-badge us">한빛</div>
+          <span>한빛 FC</span>
+        </div>
+        <div class="scoreboard-score">${m.usScore} : ${m.themScore}</div>
+        <div class="scoreboard-team">
+          <div class="scoreboard-badge them">${m.opponent.slice(0, 2)}</div>
+          <span>${m.opponent}</span>
+        </div>
+      </div>
+      <div class="scoreboard-meta">
+        <span class="scoreboard-result">${result}</span>
+        &nbsp; ${m.venue}
+      </div>
+    `;
+  }
+
+  function renderStandings() {
+    const body = document.getElementById("standings-body");
+    body.innerHTML = standings
+      .map(
+        (s) => `
+      <tr class="${s.isUs ? "us" : ""}">
+        <td>${s.rank}</td>
+        <td>${s.team}</td>
+        <td>${s.pts}</td>
+        <td>${s.w}</td>
+        <td>${s.d}</td>
+        <td>${s.l}</td>
+      </tr>`
+      )
+      .join("");
+  }
+
   function showDetail(p) {
     const pct = Math.round((p.apps / SEASON_MATCHES) * 100);
     detailContent.innerHTML = `
@@ -653,5 +850,7 @@
 
   renderGrid();
   renderHomePreview();
+  renderScoreboard();
+  renderStandings();
   goTo("home");
 </script>
