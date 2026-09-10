@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>한빛 FC 공식 홈페이지</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&family=Oswald:wght@400;500;600;700&display=swap">
@@ -13,6 +18,8 @@
     --accent-soft: #e4eee7;
     --gold: #b3872a;
     --gold-soft: #f5ecd6;
+    --lose: #a4433a;
+    --lose-soft: #f3e3e0;
     --shadow: 0 1px 2px rgba(26,36,32,.05), 0 8px 24px -12px rgba(26,36,32,.18);
   }
   @media (prefers-color-scheme: dark) {
@@ -27,6 +34,8 @@
       --accent-soft: #1d3327;
       --gold: #dfb44f;
       --gold-soft: #2b2413;
+      --lose: #e0857a;
+      --lose-soft: #3a2420;
       --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
     }
   }
@@ -41,6 +50,8 @@
     --accent-soft: #1d3327;
     --gold: #dfb44f;
     --gold-soft: #2b2413;
+    --lose: #e0857a;
+    --lose-soft: #3a2420;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
   }
 
@@ -326,6 +337,85 @@
     gap: 12px;
   }
 
+  /* ---- 경기일정 ---- */
+  .next-match {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px clamp(18px, 4vw, 28px);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .next-match-label {
+    font-family: "Oswald", sans-serif;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .next-match-teams {
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .next-match-meta {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .next-match-dday {
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--accent);
+    flex: none;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .table-scroll { overflow-x: auto; }
+  .fixtures {
+    width: 100%;
+    min-width: 520px;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  .fixtures th, .fixtures td {
+    padding: 11px 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  .fixtures th {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: .04em;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+  }
+  .fixtures td { font-variant-numeric: tabular-nums; }
+  .fixtures td:nth-child(4) { text-align: left; font-weight: 600; }
+  .fixtures tr.upcoming td { color: var(--text-muted); }
+  .fixtures tr.upcoming td:nth-child(4) { color: var(--text); }
+
+  .status-pill {
+    display: inline-block;
+    font-family: "Oswald", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .status-pill.win { background: var(--accent-soft); color: var(--accent); }
+  .status-pill.draw { background: var(--surface-2); color: var(--text-muted); }
+  .status-pill.lose { background: var(--lose-soft); color: var(--lose); }
+  .status-pill.upcoming { background: var(--gold-soft); color: var(--gold); }
+
   /* ---- roster grid ---- */
   .roster-meta {
     display: flex;
@@ -579,6 +669,8 @@
     font-size: 12px;
   }
 </style>
+</head>
+<body>
 
 <nav class="topnav">
   <div class="topnav-inner">
@@ -649,12 +741,22 @@
     </div>
   </main>
 
-  <!-- ===== 경기일정 (준비 중) ===== -->
+  <!-- ===== 경기일정 ===== -->
   <main class="page" id="page-schedule" hidden>
-    <div class="placeholder">
-      <div class="icon">Coming Soon</div>
-      <h2>경기일정 준비 중입니다</h2>
-      <p>시즌 일정과 결과가 이곳에 표시될 예정입니다.</p>
+    <div class="roster-meta">
+      <h2>2026 시즌 경기일정</h2>
+      <span id="record-summary"></span>
+    </div>
+
+    <div class="next-match" id="next-match"></div>
+
+    <div class="table-scroll">
+      <table class="fixtures">
+        <thead>
+          <tr><th>R</th><th>날짜</th><th>구분</th><th>상대</th><th>결과</th><th>경기장</th></tr>
+        </thead>
+        <tbody id="fixtures-body"></tbody>
+      </table>
     </div>
   </main>
 
@@ -700,6 +802,50 @@
     { rank: 2, team: "동해 유나이티드", pts: 47, w: 14, d: 5, l: 3 },
     { rank: 3, team: "한빛 FC", pts: 45, w: 13, d: 6, l: 3, isUs: true },
     { rank: 4, team: "청람 FC", pts: 41, w: 12, d: 5, l: 5 },
+  ];
+
+  const opponentVenue = {
+    "광산 시티 FC": "광산 스타디움",
+    "동해 유나이티드": "동해 종합운동장",
+    "청람 FC": "청람 스타디움",
+    "서한 유나이티드": "서한 아레나",
+    "대야 FC": "대야 종합운동장",
+    "금성 FC": "금성 스타디움",
+    "은파 유나이티드": "은파 아레나",
+    "솔뫼 FC": "솔뫼 종합운동장",
+    "늘푸른 FC": "늘푸른 스타디움",
+    "하늘내 FC": "하늘내 종합운동장",
+    "온새미 FC": "온새미 아레나",
+    "별빛 FC": "별빛 스타디움",
+  };
+  const HOME_VENUE = "한빛 스타디움";
+
+  // side: "홈" | "원정" / us, them: 스코어 (played 경기만) / null이면 예정 경기
+  const fixtures = [
+    { round: 1, date: "2026.03.08", opp: "광산 시티 FC", side: "원정", us: 1, them: 2 },
+    { round: 2, date: "2026.03.15", opp: "동해 유나이티드", side: "홈", us: 2, them: 0 },
+    { round: 3, date: "2026.03.22", opp: "청람 FC", side: "원정", us: 3, them: 1 },
+    { round: 4, date: "2026.03.29", opp: "서한 유나이티드", side: "원정", us: 1, them: 1 },
+    { round: 5, date: "2026.04.05", opp: "대야 FC", side: "원정", us: 2, them: 1 },
+    { round: 6, date: "2026.04.12", opp: "금성 FC", side: "홈", us: 1, them: 0 },
+    { round: 7, date: "2026.04.19", opp: "은파 유나이티드", side: "원정", us: 0, them: 0 },
+    { round: 8, date: "2026.04.26", opp: "솔뫼 FC", side: "홈", us: 3, them: 0 },
+    { round: 9, date: "2026.05.03", opp: "늘푸른 FC", side: "원정", us: 0, them: 1 },
+    { round: 10, date: "2026.05.10", opp: "하늘내 FC", side: "홈", us: 2, them: 1 },
+    { round: 11, date: "2026.05.17", opp: "온새미 FC", side: "원정", us: 1, them: 1 },
+    { round: 12, date: "2026.05.24", opp: "별빛 FC", side: "홈", us: 4, them: 1 },
+    { round: 13, date: "2026.06.07", opp: "광산 시티 FC", side: "홈", us: 1, them: 1 },
+    { round: 14, date: "2026.06.14", opp: "동해 유나이티드", side: "원정", us: 0, them: 2 },
+    { round: 15, date: "2026.06.21", opp: "청람 FC", side: "홈", us: 2, them: 0 },
+    { round: 16, date: "2026.06.28", opp: "대야 FC", side: "홈", us: 3, them: 2 },
+    { round: 17, date: "2026.07.05", opp: "금성 FC", side: "원정", us: 2, them: 2 },
+    { round: 18, date: "2026.07.12", opp: "은파 유나이티드", side: "홈", us: 1, them: 0 },
+    { round: 19, date: "2026.07.19", opp: "솔뫼 FC", side: "원정", us: 0, them: 0 },
+    { round: 20, date: "2026.07.26", opp: "늘푸른 FC", side: "홈", us: 2, them: 1 },
+    { round: 21, date: "2026.08.02", opp: "하늘내 FC", side: "원정", us: 1, them: 0 },
+    { round: 22, date: "2026.09.06", opp: "서한 유나이티드", side: "홈", us: 2, them: 1 },
+    { round: 23, date: "2026.09.13", opp: "온새미 FC", side: "홈", us: null, them: null },
+    { round: 24, date: "2026.09.20", opp: "별빛 FC", side: "원정", us: null, them: null },
   ];
 
   // ---- 페이지(사이트 프레임) 전환 ----
@@ -848,9 +994,64 @@
 
   backBtn.addEventListener("click", resetRosterView);
 
+  // ---- 경기일정 ----
+  function fixtureResult(f) {
+    if (f.us === null) return "upcoming";
+    if (f.us > f.them) return "win";
+    if (f.us < f.them) return "lose";
+    return "draw";
+  }
+  const RESULT_LABEL = { win: "승", lose: "패", draw: "무", upcoming: "예정" };
+
+  function renderSchedule() {
+    const played = fixtures.filter((f) => f.us !== null);
+    const w = played.filter((f) => fixtureResult(f) === "win").length;
+    const d = played.filter((f) => fixtureResult(f) === "draw").length;
+    const l = played.filter((f) => fixtureResult(f) === "lose").length;
+    document.getElementById("record-summary").textContent = `${w}승 ${d}무 ${l}패 · ${played.length}/${fixtures.length}경기`;
+
+    const next = fixtures.find((f) => f.us === null);
+    const nextMatchEl = document.getElementById("next-match");
+    if (next) {
+      const venue = next.side === "홈" ? HOME_VENUE : opponentVenue[next.opp];
+      const dday = Math.max(0, Math.round((new Date(next.date.replaceAll(".", "-")) - new Date("2026-09-10")) / 86400000));
+      nextMatchEl.innerHTML = `
+        <div>
+          <div class="next-match-label">다음 경기 · ${next.round}R</div>
+          <div class="next-match-teams">한빛 FC ${next.side === "홈" ? "vs" : "@"} ${next.opp}</div>
+          <div class="next-match-meta">${next.date} · ${venue}</div>
+        </div>
+        <div class="next-match-dday">D-${dday}</div>
+      `;
+    } else {
+      nextMatchEl.innerHTML = `<div class="next-match-teams">시즌 일정이 모두 종료되었습니다.</div>`;
+    }
+
+    const body = document.getElementById("fixtures-body");
+    body.innerHTML = fixtures
+      .map((f) => {
+        const status = fixtureResult(f);
+        const venue = f.side === "홈" ? HOME_VENUE : opponentVenue[f.opp];
+        const scoreText = f.us === null ? "-" : `${f.us} : ${f.them}`;
+        return `
+        <tr class="${status === "upcoming" ? "upcoming" : ""}">
+          <td>${f.round}</td>
+          <td>${f.date}</td>
+          <td>${f.side}</td>
+          <td>${f.opp}</td>
+          <td><span class="status-pill ${status}">${RESULT_LABEL[status]}</span> ${scoreText}</td>
+          <td>${venue}</td>
+        </tr>`;
+      })
+      .join("");
+  }
+
   renderGrid();
   renderHomePreview();
   renderScoreboard();
   renderStandings();
+  renderSchedule();
   goTo("home");
 </script>
+</body>
+</html>
