@@ -1,0 +1,426 @@
+<title>한빛 FC 스쿼드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&family=Oswald:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --bg: #f5f4ee;
+    --surface: #ffffff;
+    --surface-2: #eeece2;
+    --text: #1a2420;
+    --text-muted: #5e685f;
+    --line: #dedbcf;
+    --accent: #1f6e43;
+    --accent-soft: #e4eee7;
+    --gold: #b3872a;
+    --gold-soft: #f5ecd6;
+    --shadow: 0 1px 2px rgba(26,36,32,.05), 0 8px 24px -12px rgba(26,36,32,.18);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #10160f;
+      --surface: #1a2019;
+      --surface-2: #212820;
+      --text: #edefe6;
+      --text-muted: #97a396;
+      --line: #2b3428;
+      --accent: #55b481;
+      --accent-soft: #1d3327;
+      --gold: #dfb44f;
+      --gold-soft: #2b2413;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #10160f;
+    --surface: #1a2019;
+    --surface-2: #212820;
+    --text: #edefe6;
+    --text-muted: #97a396;
+    --line: #2b3428;
+    --accent: #55b481;
+    --accent-soft: #1d3327;
+    --gold: #dfb44f;
+    --gold-soft: #2b2413;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
+    padding: clamp(20px, 5vw, 56px) 20px 64px;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; }
+
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 28px;
+  }
+  .crest {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    flex: none;
+    box-shadow: var(--shadow);
+  }
+  .crest span {
+    font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
+    color: var(--gold-soft);
+    font-size: 22px;
+    line-height: 1;
+  }
+  .site-header h1 {
+    font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
+    font-weight: 400;
+    font-size: clamp(22px, 4vw, 28px);
+    margin: 0 0 2px;
+    letter-spacing: .01em;
+  }
+  .site-header p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 13.5px;
+  }
+
+  [hidden] { display: none !important; }
+
+  /* ---- roster grid ---- */
+  .roster-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .roster-meta h2 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .roster-meta span {
+    font-family: "Oswald", "Noto Sans KR", sans-serif;
+    font-size: 12px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .player-card {
+    text-align: left;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+  }
+  .player-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+  }
+  .player-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .card-num {
+    font-family: "Oswald", sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    color: var(--accent);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .pos-pill {
+    font-family: "Oswald", sans-serif;
+    font-size: 11px;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 3px 9px;
+    margin-top: 4px;
+  }
+  .card-name {
+    font-weight: 700;
+    font-size: 16.5px;
+  }
+  .card-sub {
+    color: var(--text-muted);
+    font-size: 12.5px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--line);
+    padding-top: 9px;
+  }
+  .card-sub b {
+    color: var(--text);
+    font-family: "Oswald", sans-serif;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- detail view ---- */
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--text);
+    font: inherit;
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 100px;
+    cursor: pointer;
+    margin-bottom: 22px;
+  }
+  .back-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .back-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .detail-head {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px clamp(20px, 4vw, 36px);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .detail-num {
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    font-size: 76px;
+    color: var(--gold);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    flex: none;
+  }
+  .detail-id h2 {
+    font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
+    font-weight: 400;
+    font-size: clamp(26px, 4vw, 34px);
+    margin: 0 0 8px;
+    text-wrap: balance;
+  }
+  .detail-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-family: "Oswald", sans-serif;
+    font-size: 11.5px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+  .tag.pos { background: var(--accent-soft); color: var(--accent); }
+  .tag.cap { background: var(--gold-soft); color: var(--gold); }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .stat {
+    background: var(--surface);
+    padding: 16px 18px;
+  }
+  .stat .label {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    letter-spacing: .03em;
+    margin-bottom: 5px;
+  }
+  .stat .value {
+    font-family: "Oswald", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .apps-block {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+  .apps-block .label {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    letter-spacing: .03em;
+    margin-bottom: 10px;
+  }
+  .apps-bar-track {
+    height: 10px;
+    border-radius: 100px;
+    background: var(--surface-2);
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .apps-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: var(--accent);
+  }
+  .apps-caption {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    font-family: "Oswald", sans-serif;
+    font-variant-numeric: tabular-nums;
+  }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+</style>
+
+<div class="wrap">
+  <header class="site-header">
+    <div class="crest"><span>한</span></div>
+    <div>
+      <h1>한빛 FC</h1>
+      <p>2026 시즌 스쿼드 · K4리그</p>
+    </div>
+  </header>
+
+  <main id="roster-view">
+    <div class="roster-meta">
+      <h2>1군 명단</h2>
+      <span>11 PLAYERS</span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <main id="detail-view" hidden>
+    <button class="back-btn" id="back-btn" type="button">← 명단으로</button>
+    <div id="detail-content"></div>
+  </main>
+
+  <footer>테스트 페이지 · 선수단 정보는 예시 데이터입니다.</footer>
+</div>
+
+<script>
+  const SEASON_MATCHES = 24;
+
+  const players = [
+    { num: 1, name: "이준혁", pos: "GK", posLabel: "골키퍼", age: 27, apps: 22, school: "성남서고 - 명지대", height: 189, weight: 84, joined: 2022, captain: false },
+    { num: 2, name: "박도현", pos: "DF", posLabel: "수비수", age: 24, apps: 19, school: "오산고 - 아주대", height: 181, weight: 76, joined: 2023, captain: false },
+    { num: 3, name: "김태윤", pos: "DF", posLabel: "수비수", age: 26, apps: 21, school: "풍생고 - 단국대", height: 183, weight: 78, joined: 2021, captain: false },
+    { num: 4, name: "오승민", pos: "DF", posLabel: "수비수", age: 29, apps: 24, school: "매탄고 - 연세대", height: 185, weight: 80, joined: 2019, captain: true },
+    { num: 5, name: "한지훈", pos: "DF", posLabel: "수비수", age: 23, apps: 15, school: "신갈고 - 한양대", height: 179, weight: 73, joined: 2024, captain: false },
+    { num: 6, name: "정우진", pos: "MF", posLabel: "미드필더", age: 25, apps: 20, school: "광양제철고 - 고려대", height: 176, weight: 70, joined: 2022, captain: false },
+    { num: 7, name: "최성훈", pos: "MF", posLabel: "미드필더", age: 22, apps: 17, school: "안양공고 - 중앙대", height: 174, weight: 68, joined: 2024, captain: false },
+    { num: 8, name: "강민재", pos: "MF", posLabel: "미드필더", age: 28, apps: 23, school: "영생고 - 성균관대", height: 177, weight: 71, joined: 2020, captain: false },
+    { num: 9, name: "서동욱", pos: "FW", posLabel: "공격수", age: 24, apps: 18, school: "진주고 - 경희대", height: 180, weight: 74, joined: 2023, captain: false },
+    { num: 10, name: "윤재현", pos: "MF", posLabel: "미드필더", age: 26, apps: 22, school: "동북고 - 연세대", height: 175, weight: 69, joined: 2021, captain: false },
+    { num: 11, name: "임현우", pos: "FW", posLabel: "공격수", age: 21, apps: 12, school: "보인고 - 아주대", height: 178, weight: 72, joined: 2025, captain: false },
+  ];
+
+  const grid = document.getElementById("grid");
+  const rosterView = document.getElementById("roster-view");
+  const detailView = document.getElementById("detail-view");
+  const detailContent = document.getElementById("detail-content");
+  const backBtn = document.getElementById("back-btn");
+
+  function renderGrid() {
+    grid.innerHTML = "";
+    players.forEach((p) => {
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "player-card";
+      card.setAttribute("aria-label", `${p.name} 상세 정보 보기`);
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="card-num">${p.num}</div>
+          <div class="pos-pill">${p.pos}</div>
+        </div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-sub">
+          <span>출전</span>
+          <b>${p.apps}/${SEASON_MATCHES}</b>
+        </div>
+      `;
+      card.addEventListener("click", () => showDetail(p));
+      grid.appendChild(card);
+    });
+  }
+
+  function showDetail(p) {
+    const pct = Math.round((p.apps / SEASON_MATCHES) * 100);
+    detailContent.innerHTML = `
+      <div class="detail-head">
+        <div class="detail-num">${p.num}</div>
+        <div class="detail-id">
+          <h2>${p.name}</h2>
+          <div class="detail-tags">
+            <span class="tag pos">${p.posLabel}</span>
+            ${p.captain ? '<span class="tag cap">주장</span>' : ""}
+          </div>
+        </div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><div class="label">나이</div><div class="value">${p.age}세</div></div>
+        <div class="stat"><div class="label">등번호</div><div class="value">${p.num}</div></div>
+        <div class="stat"><div class="label">출신학교</div><div class="value" style="font-size:15px">${p.school}</div></div>
+        <div class="stat"><div class="label">신장 / 체중</div><div class="value">${p.height}cm / ${p.weight}kg</div></div>
+        <div class="stat"><div class="label">입단연도</div><div class="value">${p.joined}</div></div>
+      </div>
+      <div class="apps-block">
+        <div class="label">경기 출전 수 (시즌 ${SEASON_MATCHES}경기 기준)</div>
+        <div class="apps-bar-track"><div class="apps-bar-fill" style="width:${pct}%"></div></div>
+        <div class="apps-caption"><span>${p.apps}경기 출전</span><span>${pct}%</span></div>
+      </div>
+    `;
+    rosterView.hidden = true;
+    detailView.hidden = false;
+    backBtn.focus();
+  }
+
+  backBtn.addEventListener("click", () => {
+    detailView.hidden = true;
+    rosterView.hidden = false;
+  });
+
+  renderGrid();
+</script>
