@@ -1,4 +1,4 @@
-<title>한빛 FC 스쿼드</title>
+<title>한빛 FC 공식 홈페이지</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&family=Oswald:wght@400;500;600;700&display=swap">
 <style>
@@ -50,45 +50,164 @@
     background: var(--bg);
     color: var(--text);
     font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
-    padding: clamp(20px, 5vw, 56px) 20px 64px;
   }
-  .wrap { max-width: 980px; margin: 0 auto; }
+  [hidden] { display: none !important; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
 
-  .site-header {
+  /* ---- top nav (site shell) ---- */
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .topnav-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 14px 20px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 16px;
-    padding-bottom: 22px;
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 28px;
+    flex-wrap: wrap;
   }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    border-radius: 8px;
+  }
+  .brand:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   .crest {
-    width: 52px; height: 52px; border-radius: 50%;
+    width: 38px; height: 38px; border-radius: 50%;
     background: var(--accent);
     display: flex; align-items: center; justify-content: center;
     flex: none;
-    box-shadow: var(--shadow);
   }
   .crest span {
     font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
     color: var(--gold-soft);
-    font-size: 22px;
+    font-size: 16px;
     line-height: 1;
   }
-  .site-header h1 {
+  .brand-name {
     font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
     font-weight: 400;
-    font-size: clamp(22px, 4vw, 28px);
-    margin: 0 0 2px;
+    font-size: 19px;
     letter-spacing: .01em;
   }
-  .site-header p {
-    margin: 0;
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .nav-link {
+    background: none;
+    border: none;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
     color: var(--text-muted);
-    font-size: 13.5px;
+    padding: 8px 12px;
+    border-radius: 100px;
+    cursor: pointer;
+  }
+  .nav-link:hover { color: var(--text); background: var(--surface-2); }
+  .nav-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .nav-link[aria-current="page"] { color: var(--accent); background: var(--accent-soft); }
+
+  main.page { padding: clamp(24px, 5vw, 48px) 0 64px; }
+
+  /* ---- home view ---- */
+  .hero {
+    padding: clamp(12px, 3vw, 20px) 0 clamp(28px, 5vw, 40px);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: clamp(28px, 5vw, 40px);
+  }
+  .hero-eyebrow {
+    font-family: "Oswald", sans-serif;
+    font-size: 12px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
+    font-weight: 400;
+    font-size: clamp(30px, 6vw, 46px);
+    margin: 0 0 14px;
+    text-wrap: balance;
+    line-height: 1.15;
+  }
+  .hero p {
+    max-width: 46ch;
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0 0 22px;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: var(--gold-soft);
+    border: none;
+    font: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 22px;
+    border-radius: 100px;
+    cursor: pointer;
+  }
+  .cta:hover { filter: brightness(1.08); }
+  .cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .fact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: clamp(28px, 5vw, 40px);
+  }
+  .fact {
+    background: var(--surface);
+    padding: 18px 20px;
+  }
+  .fact .label {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    letter-spacing: .03em;
+    margin-bottom: 6px;
+  }
+  .fact .value {
+    font-family: "Oswald", sans-serif;
+    font-size: 19px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
   }
 
-  [hidden] { display: none !important; }
+  .section-heading {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 14px;
+  }
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
 
   /* ---- roster grid ---- */
   .roster-meta {
@@ -184,7 +303,7 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* ---- detail view ---- */
+  /* ---- player detail ---- */
   .back-btn {
     display: inline-flex;
     align-items: center;
@@ -306,35 +425,107 @@
     font-variant-numeric: tabular-nums;
   }
 
+  /* ---- placeholder pages (경기일정 / 구단소개) ---- */
+  .placeholder {
+    border: 1px dashed var(--line);
+    border-radius: 14px;
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--text-muted);
+  }
+  .placeholder .icon {
+    font-family: "Oswald", sans-serif;
+    font-size: 12px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .placeholder h2 {
+    font-family: "Black Han Sans", "Noto Sans KR", sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: var(--text);
+    margin: 0 0 8px;
+  }
+  .placeholder p { margin: 0; font-size: 13.5px; }
+
   footer {
-    margin-top: 40px;
-    padding-top: 18px;
+    padding: 18px 0 40px;
     border-top: 1px solid var(--line);
     color: var(--text-muted);
     font-size: 12px;
   }
 </style>
 
-<div class="wrap">
-  <header class="site-header">
-    <div class="crest"><span>한</span></div>
-    <div>
-      <h1>한빛 FC</h1>
-      <p>2026 시즌 스쿼드 · K4리그</p>
+<nav class="topnav">
+  <div class="topnav-inner">
+    <button class="brand" data-nav="home" aria-label="홈으로 이동">
+      <span class="crest"><span>한</span></span>
+      <span class="brand-name">한빛 FC</span>
+    </button>
+    <div class="nav-links" role="navigation">
+      <button class="nav-link" data-nav="home">홈</button>
+      <button class="nav-link" data-nav="roster">선수단</button>
+      <button class="nav-link" data-nav="schedule">경기일정</button>
+      <button class="nav-link" data-nav="about">구단소개</button>
     </div>
-  </header>
+  </div>
+</nav>
 
-  <main id="roster-view">
-    <div class="roster-meta">
-      <h2>1군 명단</h2>
-      <span>11 PLAYERS</span>
+<div class="wrap">
+  <!-- ===== 홈 ===== -->
+  <main class="page" id="page-home">
+    <section class="hero">
+      <div class="hero-eyebrow">2026 시즌 · K4리그</div>
+      <h1>정직한 축구, 한빛 FC</h1>
+      <p>2019년 창단 이후 지역과 함께 성장해온 한빛 FC의 공식 홈페이지입니다. 선수단 정보와 시즌 기록을 이곳에서 확인하세요.</p>
+      <button class="cta" data-nav="roster">선수단 보기 →</button>
+    </section>
+
+    <div class="fact-grid">
+      <div class="fact"><div class="label">창단연도</div><div class="value">2019</div></div>
+      <div class="fact"><div class="label">홈구장</div><div class="value" style="font-size:15px">한빛 스타디움</div></div>
+      <div class="fact"><div class="label">소속리그</div><div class="value" style="font-size:15px">K4리그</div></div>
+      <div class="fact"><div class="label">등록 선수</div><div class="value">11</div></div>
     </div>
-    <div class="grid" id="grid"></div>
+
+    <h2 class="section-heading">주요 선수</h2>
+    <div class="preview-grid" id="home-preview"></div>
   </main>
 
-  <main id="detail-view" hidden>
-    <button class="back-btn" id="back-btn" type="button">← 명단으로</button>
-    <div id="detail-content"></div>
+  <!-- ===== 선수단 ===== -->
+  <main class="page" id="page-roster" hidden>
+    <div id="roster-list">
+      <div class="roster-meta">
+        <h2>1군 명단</h2>
+        <span>11 PLAYERS</span>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+
+    <div id="roster-detail" hidden>
+      <button class="back-btn" id="back-btn" type="button">← 명단으로</button>
+      <div id="detail-content"></div>
+    </div>
+  </main>
+
+  <!-- ===== 경기일정 (준비 중) ===== -->
+  <main class="page" id="page-schedule" hidden>
+    <div class="placeholder">
+      <div class="icon">Coming Soon</div>
+      <h2>경기일정 준비 중입니다</h2>
+      <p>시즌 일정과 결과가 이곳에 표시될 예정입니다.</p>
+    </div>
+  </main>
+
+  <!-- ===== 구단소개 (준비 중) ===== -->
+  <main class="page" id="page-about" hidden>
+    <div class="placeholder">
+      <div class="icon">Coming Soon</div>
+      <h2>구단소개 준비 중입니다</h2>
+      <p>한빛 FC의 역사와 철학이 이곳에 소개될 예정입니다.</p>
+    </div>
   </main>
 
   <footer>테스트 페이지 · 선수단 정보는 예시 데이터입니다.</footer>
@@ -357,33 +548,74 @@
     { num: 11, name: "임현우", pos: "FW", posLabel: "공격수", age: 21, apps: 12, school: "보인고 - 아주대", height: 178, weight: 72, joined: 2025, captain: false },
   ];
 
+  // ---- 페이지(사이트 프레임) 전환 ----
+  const pages = {
+    home: document.getElementById("page-home"),
+    roster: document.getElementById("page-roster"),
+    schedule: document.getElementById("page-schedule"),
+    about: document.getElementById("page-about"),
+  };
+  const navButtons = document.querySelectorAll("[data-nav]");
+
+  function goTo(name) {
+    Object.entries(pages).forEach(([key, el]) => { el.hidden = key !== name; });
+    document.querySelectorAll(".nav-link").forEach((btn) => {
+      btn.toggleAttribute("aria-current", btn.dataset.nav === name);
+      if (btn.dataset.nav === name) btn.setAttribute("aria-current", "page");
+      else btn.removeAttribute("aria-current");
+    });
+    if (name === "roster") resetRosterView();
+    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+  }
+
+  navButtons.forEach((btn) => btn.addEventListener("click", () => goTo(btn.dataset.nav)));
+
+  // ---- 선수단: 목록 / 상세 ----
   const grid = document.getElementById("grid");
-  const rosterView = document.getElementById("roster-view");
-  const detailView = document.getElementById("detail-view");
+  const homePreview = document.getElementById("home-preview");
+  const rosterList = document.getElementById("roster-list");
+  const rosterDetail = document.getElementById("roster-detail");
   const detailContent = document.getElementById("detail-content");
   const backBtn = document.getElementById("back-btn");
 
+  function playerCard(p) {
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "player-card";
+    card.setAttribute("aria-label", `${p.name} 상세 정보 보기`);
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="card-num">${p.num}</div>
+        <div class="pos-pill">${p.pos}</div>
+      </div>
+      <div class="card-name">${p.name}</div>
+      <div class="card-sub">
+        <span>출전</span>
+        <b>${p.apps}/${SEASON_MATCHES}</b>
+      </div>
+    `;
+    card.addEventListener("click", () => {
+      goTo("roster");
+      showDetail(p);
+    });
+    return card;
+  }
+
   function renderGrid() {
     grid.innerHTML = "";
-    players.forEach((p) => {
-      const card = document.createElement("button");
-      card.type = "button";
-      card.className = "player-card";
-      card.setAttribute("aria-label", `${p.name} 상세 정보 보기`);
-      card.innerHTML = `
-        <div class="card-top">
-          <div class="card-num">${p.num}</div>
-          <div class="pos-pill">${p.pos}</div>
-        </div>
-        <div class="card-name">${p.name}</div>
-        <div class="card-sub">
-          <span>출전</span>
-          <b>${p.apps}/${SEASON_MATCHES}</b>
-        </div>
-      `;
-      card.addEventListener("click", () => showDetail(p));
-      grid.appendChild(card);
-    });
+    players.forEach((p) => grid.appendChild(playerCard(p)));
+  }
+
+  function renderHomePreview() {
+    homePreview.innerHTML = "";
+    // 주장 + 최다 출전 2명을 홈 화면에 노출
+    const featured = [...players].sort((a, b) => (b.captain === a.captain ? b.apps - a.apps : b.captain - a.captain)).slice(0, 3);
+    featured.forEach((p) => homePreview.appendChild(playerCard(p)));
+  }
+
+  function resetRosterView() {
+    rosterDetail.hidden = true;
+    rosterList.hidden = false;
   }
 
   function showDetail(p) {
@@ -412,15 +644,14 @@
         <div class="apps-caption"><span>${p.apps}경기 출전</span><span>${pct}%</span></div>
       </div>
     `;
-    rosterView.hidden = true;
-    detailView.hidden = false;
+    rosterList.hidden = true;
+    rosterDetail.hidden = false;
     backBtn.focus();
   }
 
-  backBtn.addEventListener("click", () => {
-    detailView.hidden = true;
-    rosterView.hidden = false;
-  });
+  backBtn.addEventListener("click", resetRosterView);
 
   renderGrid();
+  renderHomePreview();
+  goTo("home");
 </script>
